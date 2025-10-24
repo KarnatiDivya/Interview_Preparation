@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://tse1.mm.bing.net/th/id/OIP.TPZmMV1UBivkPjaXfkMOGQHaE8?pid=Api&P=0&h=180">
+    <title>Technical MCQs</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f0f4ff;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #1a237e;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+        }
+        
+        select,
+        button {
+            padding: 12px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+        
+        button {
+            cursor: pointer;
+            background: #1a237e;
+            color: #fff;
+            border: none;
+            transition: 0.3s;
+        }
+        
+        button:hover {
+            background: #3949ab;
+        }
+        
+        .question {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-left: 5px solid #1a237e;
+            border-radius: 8px;
+        }
+        
+        .options label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+        }
+        
+        .review {
+            background: #e8f0fe;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Technical MCQs</h1>
+
+        <!-- Select Subject -->
+        <label for="topic">Select Subject:</label>
+        <select id="topic">
+        <option value="">--Choose Subject--</option>
+        <option value="Java">Java</option>
+        <option value="Python">Python</option>
+        <option value="C">C</option>
+        <option value="Cpp">C++</option>
+    </select>
+
+        <!-- Quiz Questions -->
+        <div id="quiz" style="display:none;"></div>
+
+        <!-- Buttons -->
+        <div class="btn-group" style="display:none;">
+            <button id="submitQuiz">Submit Quiz</button>
+            <button id="retryQuiz">Retry Quiz</button>
+        </div>
+
+        <!-- Review -->
+        <div id="review" class="review"></div>
+
+        <!-- Go Home -->
+        <button id="goHome" style="display:none;">Go to Home</button>
+    </div>
+    </div>
+    <div style="text-align:center; margin:30px 0;">
+        <a href="./Home.html" style="display:inline-block; padding:10px 20px; background:#007bff; color:white; border-radius:6px; text-decoration:none; transition:0.3s;">
+    Go to Home
+  </a>
+    </div>
+
+    <script>
+        // 20 realistic MCQs per subject
+        const quizData = {
+            Java: [{
+                question: "Which of these is not a Java feature?",
+                options: ["Object-oriented", "Use of pointers", "Portable", "Dynamic"],
+                answer: "Use of pointers"
+            }, {
+                question: "What is JVM?",
+                options: ["Java Virtual Machine", "Java Variable Method", "Just Virtual Machine", "None"],
+                answer: "Java Virtual Machine"
+            }, {
+                question: "Which keyword is used for inheritance?",
+                options: ["this", "super", "extends", "implements"],
+                answer: "extends"
+            }, {
+                question: "What is JDK?",
+                options: ["Java Development Kit", "Java Deploy Kit", "Java Debug Kit", "None"],
+                answer: "Java Development Kit"
+            }, {
+                question: "Which method is entry point of Java program?",
+                options: ["main()", "start()", "init()", "run()"],
+                answer: "main()"
+            }, {
+                question: "Which exception is thrown by divide by zero?",
+                options: ["ArithmeticException", "NullPointerException", "IOException", "NumberFormatException"],
+                answer: "ArithmeticException"
+            }, {
+                question: "Which package is imported by default?",
+                options: ["java.lang", "java.util", "java.io", "java.sql"],
+                answer: "java.lang"
+            }, {
+                question: "Which of these is a loop in Java?",
+                options: ["for", "while", "do-while", "All of the above"],
+                answer: "All of the above"
+            }, {
+                question: "Which operator is used for comparison?",
+                options: ["=", "==", "===", "!="],
+                answer: "=="
+            }, {
+                question: "Which is mutable in Java?",
+                options: ["String", "StringBuilder", "Both", "None"],
+                answer: "StringBuilder"
+            }, {
+                question: "Which keyword is used to prevent inheritance?",
+                options: ["final", "static", "abstract", "private"],
+                answer: "final"
+            }, {
+                question: "Which of these is not a primitive type?",
+                options: ["int", "boolean", "String", "float"],
+                answer: "String"
+            }, {
+                question: "What does 'static' keyword denote?",
+                options: ["Class level member", "Object level member", "Instance method", "None"],
+                answer: "Class level member"
+            }, {
+                question: "Which method is used to start a thread?",
+                options: ["start()", "run()", "init()", "execute()"],
+                answer: "start()"
+            }, {
+                question: "Which interface supports lambda expressions?",
+                options: ["Runnable", "Comparator", "Both", "None"],
+                answer: "Both"
+            }, {
+                question: "Which of these is used to handle exceptions?",
+                options: ["try-catch", "throw", "finally", "All"],
+                answer: "All"
+            }, {
+                question: "Which keyword is used to implement interface?",
+                options: ["implements", "extends", "interface", "uses"],
+                answer: "implements"
+            }, {
+                question: "Which collection is synchronized?",
+                options: ["ArrayList", "Vector", "HashMap", "HashSet"],
+                answer: "Vector"
+            }, {
+                question: "Which method is called to get hash code?",
+                options: ["hashCode()", "getHash()", "hash()", "code()"],
+                answer: "hashCode()"
+            }, {
+                question: "Which of these is a wrapper class?",
+                options: ["Integer", "int", "Float", "float"],
+                answer: "Integer"
+            }],
+            Python: [{
+                question: "Which of these is not a Python data type?",
+                options: ["List", "Dictionary", "Tuple", "Character"],
+                answer: "Character"
+            }, {
+                question: "What is output of 3**2?",
+                options: ["6", "9", "8", "None"],
+                answer: "9"
+            }, {
+                question: "Which keyword is used for function?",
+                options: ["function", "def", "fun", "define"],
+                answer: "def"
+            }, {
+                question: "What does 'len()' do?",
+                options: ["Returns number of characters", "Returns length of object", "Counts words", "None"],
+                answer: "Returns length of object"
+            }, {
+                question: "Which of these is mutable?",
+                options: ["List", "Tuple", "String", "Integer"],
+                answer: "List"
+            }, {
+                question: "Which is Python loop?",
+                options: ["for", "while", "do-while", "Both A & B"],
+                answer: "Both A & B"
+            }, {
+                question: "Which of these is Python comment?",
+                options: ["// comment", "# comment", "/* comment */", "None"],
+                answer: "# comment"
+            }, {
+                question: "Which of these is correct to create set?",
+                options: ["{}", "set()", "[]", "Both A & B"],
+                answer: "set()"
+            }, {
+                question: "Which operator is exponentiation?",
+                options: ["^", "**", "%", "//"],
+                answer: "**"
+            }, {
+                question: "Which module is used for math operations?",
+                options: ["math", "cmath", "numpy", "All"],
+                answer: "All"
+            }, {
+                question: "What is Python's extension?",
+                options: [".py", ".java", ".cpp", ".c"],
+                answer: ".py"
+            }, {
+                question: "How to create virtual environment?",
+                options: ["venv", "virtualenv", "Both", "None"],
+                answer: "Both"
+            }, {
+                question: "Which function converts string to int?",
+                options: ["int()", "str()", "float()", "toInt()"],
+                answer: "int()"
+            }, {
+                question: "Which is used to handle exceptions?",
+                options: ["try-except", "catch", "finally", "All"],
+                answer: "try-except"
+            }, {
+                question: "What is output: bool('')?",
+                options: ["True", "False", "Error", "None"],
+                answer: "False"
+            }, {
+                question: "Which is correct for dictionary?",
+                options: ["dict()", "{}", "Both", "None"],
+                answer: "Both"
+            }, {
+                question: "Which keyword is used for class?",
+                options: ["class", "def", "struct", "object"],
+                answer: "class"
+            }, {
+                question: "Which is correct for multi-line comment?",
+                options: ["''' Comment '''", "\"\"\" Comment \"\"\"", "Both", "None"],
+                answer: "Both"
+            }, {
+                question: "Which operator is floor division?",
+                options: ["/", "//", "%", "None"],
+                answer: "//"
+            }, {
+                question: "Which method adds element to list?",
+                options: ["append()", "add()", "insert()", "extend()"],
+                answer: "append()"
+            }],
+            C: [{
+                question: "Which header file is needed for printf?",
+                options: ["stdio.h", "conio.h", "stdlib.h", "math.h"],
+                answer: "stdio.h"
+            }, {
+                question: "Which of these is loop?",
+                options: ["for", "while", "do-while", "All"],
+                answer: "All"
+            }, {
+                question: "Which data type is unsigned?",
+                options: ["int", "unsigned int", "char", "None"],
+                answer: "unsigned int"
+            }, {
+                question: "Which operator is bitwise AND?",
+                options: ["&", "|", "^", "&&"],
+                answer: "&"
+            }, {
+                question: "Which function reads a line?",
+                options: ["gets()", "scanf()", "printf()", "None"],
+                answer: "gets()"
+            }, {
+                question: "Which is correct for main function?",
+                options: ["int main()", "void main()", "Both", "None"],
+                answer: "int main()"
+            }, {
+                question: "Which function allocates memory?",
+                options: ["malloc()", "calloc()", "Both", "None"],
+                answer: "Both"
+            }, {
+                question: "Which of these is not C keyword?",
+                options: ["switch", "for", "function", "while"],
+                answer: "function"
+            }, {
+                question: "Which operator is ternary?",
+                options: ["?:", "&&", "||", "=="],
+                answer: "?:"
+            }, {
+                question: "Which is used for macro?",
+                options: ["#define", "#include", "#ifdef", "#endif"],
+                answer: "#define"
+            }, {
+                question: "Which library is for math?",
+                options: ["math.h", "stdio.h", "stdlib.h", "string.h"],
+                answer: "math.h"
+            }, {
+                question: "Which is correct to declare pointer?",
+                options: ["int *p;", "int p*;", "int &p;", "*int p;"],
+                answer: "int *p;"
+            }, {
+                question: "Which function frees memory?",
+                options: ["free()", "delete()", "malloc()", "None"],
+                answer: "free()"
+            }, {
+                question: "Which operator dereferences pointer?",
+                options: ["*", "&", "->", "."],
+                answer: "*"
+            }, {
+                question: "Which is preprocessor directive?",
+                options: ["#include", "#define", "Both", "None"],
+                answer: "Both"
+            }, {
+                question: "Which keyword for structure?",
+                options: ["struct", "class", "define", "None"],
+                answer: "struct"
+            }, {
+                question: "Which loops at least once?",
+                options: ["do-while", "for", "while", "None"],
+                answer: "do-while"
+            }, {
+                question: "Which operator is modulo?",
+                options: ["%", "/", "*", "//"],
+                answer: "%"
+            }],
+            Cpp: [{
+                question: "Which is object-oriented?",
+                options: ["C++", "C", "Both", "None"],
+                answer: "C++"
+            }, {
+                question: "Which supports operator overloading?",
+                options: ["C++", "Java", "Python", "C"],
+                answer: "C++"
+            }, {
+                question: "Which is used for polymorphism?",
+                options: ["Virtual function", "Inline function", "Both", "None"],
+                answer: "Virtual function"
+            }, {
+                question: "Which header for I/O?",
+                options: ["iostream", "stdio.h", "conio.h", "None"],
+                answer: "iostream"
+            }, {
+                question: "Which keyword is for inheritance?",
+                options: ["public", "private", "protected", "All"],
+                answer: "All"
+            }, {
+                question: "Which is a reference variable?",
+                options: ["int &ref", "int *ref", "int ref", "&int ref"],
+                answer: "int &ref"
+            }, {
+                question: "Which function is constructor?",
+                options: ["Same name as class", "main()", "init()", "None"],
+                answer: "Same name as class"
+            }, {
+                question: "Which supports templates?",
+                options: ["C++", "Java", "Python", "C"],
+                answer: "C++"
+            }, {
+                question: "Which operator is new?",
+                options: ["new", "malloc", "calloc", "None"],
+                answer: "new"
+            }, {
+                question: "Which is destructor?",
+                options: ["~ClassName", "delete", "None", "Both"],
+                answer: "~ClassName"
+            }, {
+                question: "Which exception is in C++?",
+                options: ["try-catch", "throw", "Both", "None"],
+                answer: "Both"
+            }, {
+                question: "Which keyword for pure virtual?",
+                options: ["virtual", "abstract", "None", "Both"],
+                answer: "virtual"
+            }, {
+                question: "Which container is STL?",
+                options: ["vector", "array", "list", "All"],
+                answer: "All"
+            }, {
+                question: "Which algorithm is in STL?",
+                options: ["sort", "find", "binary_search", "All"],
+                answer: "All"
+            }, {
+                question: "Which keyword is friend?",
+                options: ["friend", "public", "private", "protected"],
+                answer: "friend"
+            }, {
+                question: "Which operator dereference pointer?",
+                options: ["*", "&", "->", "::"],
+                answer: "*"
+            }, {
+                question: "Which is not C++ keyword?",
+                options: ["class", "struct", "extends", "template"],
+                answer: "extends"
+            }]
+        };
+
+        const topicSelect = document.getElementById('topic');
+        const quizDiv = document.getElementById('quiz');
+        const submitBtn = document.getElementById('submitQuiz');
+        const retryBtn = document.getElementById('retryQuiz');
+        const reviewDiv = document.getElementById('review');
+        const goHomeBtn = document.getElementById('goHome');
+        const btnGroup = document.querySelector('.btn-group');
+
+        let currentTopic = "";
+        let userAnswers = [];
+
+        topicSelect.addEventListener('change', () => {
+            currentTopic = topicSelect.value;
+            if (currentTopic) {
+                renderQuiz(currentTopic);
+                quizDiv.style.display = 'block';
+                btnGroup.style.display = 'block';
+                reviewDiv.style.display = 'none';
+                goHomeBtn.style.display = 'none';
+            } else {
+                quizDiv.style.display = 'none';
+                btnGroup.style.display = 'none';
+            }
+        });
+
+        function renderQuiz(topic) {
+            const questions = quizData[topic] || [];
+            userAnswers = new Array(questions.length).fill(null);
+            quizDiv.innerHTML = '';
+            questions.forEach((q, index) => {
+                const qDiv = document.createElement('div');
+                qDiv.classList.add('question');
+                qDiv.innerHTML = `<strong>${index+1}. ${q.question}</strong>`;
+                const optionsDiv = document.createElement('div');
+                optionsDiv.classList.add('options');
+                q.options.forEach(opt => {
+                    const label = document.createElement('label');
+                    label.innerHTML = `<input type="radio" name="q${index}" value="${opt}"> ${opt}`;
+                    optionsDiv.appendChild(label);
+                });
+                qDiv.appendChild(optionsDiv);
+                quizDiv.appendChild(qDiv);
+            });
+
+            document.querySelectorAll('.options input').forEach(input => {
+                input.addEventListener('change', (e) => {
+                    const qIndex = parseInt(e.target.name.substring(1));
+                    userAnswers[qIndex] = e.target.value;
+                });
+            });
+        }
+
+        submitBtn.addEventListener('click', () => {
+            const questions = quizData[currentTopic] || [];
+            let score = 0;
+            let reviewHTML = "<h3>Review:</h3>";
+            questions.forEach((q, index) => {
+                const userAnswer = userAnswers[index] || "Not Answered";
+                const correct = q.answer;
+                if (userAnswer === correct) score++;
+                reviewHTML += `<p>${index+1}. ${q.question}<br>Your Answer: ${userAnswer} | Correct Answer: ${correct}</p>`;
+            });
+            reviewHTML += `<h4>Score: ${score} / ${questions.length}</h4>`;
+            reviewDiv.innerHTML = reviewHTML;
+            reviewDiv.style.display = 'block';
+            goHomeBtn.style.display = 'block';
+        });
+
+        retryBtn.addEventListener('click', () => {
+            renderQuiz(currentTopic);
+            reviewDiv.style.display = 'none';
+            goHomeBtn.style.display = 'none';
+        });
+
+        goHomeBtn.addEventListener('click', () => {
+            window.location.href = 'Home.html';
+        });
+    </script>
+</body>
+
+</html>

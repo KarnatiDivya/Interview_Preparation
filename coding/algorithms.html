@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://tse4.mm.bing.net/th/id/OIP.mgHjOhz7iWtuhIFHa3alwAHaHa?pid=Api&P=0&h=180">
+    <title>Algorithms Quiz | InterviewPrep Hub</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f9fbff;
+            margin: 0;
+            color: #333;
+        }
+        
+        nav {
+            background: #003366;
+            padding: 15px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            margin: 0;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #ffcc00;
+        }
+        
+        .hero {
+            background: #007bff;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .hero h1 {
+            margin-bottom: 10px;
+        }
+        
+        .hero p {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        
+        .quiz-container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question {
+            margin-bottom: 20px;
+        }
+        
+        .question h3 {
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+        
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .options li {
+            margin-bottom: 8px;
+        }
+        
+        .options input {
+            margin-right: 10px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+        
+        button:hover {
+            background: #0056b3;
+        }
+        
+        footer {
+            background: #003366;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        
+        .go-home {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .go-home a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .go-home a:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">InterviewPrep Hub</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="quiz" style="color:#ffcc00;">Coding</a></li>
+
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section id="home" class="hero">
+        <h1>Algorithms Quiz</h1>
+        <p>Answer all 30 questions covering Sorting, Searching, Dynamic Programming, and Graph Algorithms.</p>
+    </section>
+
+    <!-- QUIZ CONTAINER -->
+    <div class="quiz-container" id="quiz"></div>
+
+    <!-- Go to Home button -->
+    <div class="go-home">
+        <a href="../Home.html">Go to Home</a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 All Rights Reserved | Designed by <strong>Karnati Divya</strong></p>
+    </footer>
+
+    <script>
+        const quizData = [
+            // Sorting 
+            {
+                question: "Sorting: Bubble sort best-case complexity?",
+                options: ["O(n)", "O(n^2)", "O(log n)", "O(n log n)"],
+                answer: "O(n)"
+            }, {
+                question: "Sorting: Quick sort worst-case complexity?",
+                options: ["O(n^2)", "O(n log n)", "O(log n)", "O(n)"],
+                answer: "O(n^2)"
+            }, {
+                question: "Sorting: Merge sort is?",
+                options: ["Stable", "Unstable", "Both", "None"],
+                answer: "Stable"
+            }, {
+                question: "Sorting: Insertion sort best-case scenario?",
+                options: ["Sorted array", "Reverse array", "Random array", "All"],
+                answer: "Sorted array"
+            }, {
+                question: "Sorting: Selection sort complexity?",
+                options: ["O(n^2)", "O(n log n)", "O(n)", "O(log n)"],
+                answer: "O(n^2)"
+            }, {
+                question: "Sorting: Heap sort time complexity?",
+                options: ["O(n log n)", "O(n^2)", "O(log n)", "O(n)"],
+                answer: "O(n log n)"
+            }, {
+                question: "Sorting: Counting sort is?",
+                options: ["Non-comparison", "Comparison", "Recursive", "Iterative"],
+                answer: "Non-comparison"
+            }, {
+                question: "Sorting: Which is stable?",
+                options: ["Bubble", "Quick", "Heap", "Selection"],
+                answer: "Bubble"
+            },
+
+            // Searching 
+            {
+                question: "Searching: Linear search best-case?",
+                options: ["O(1)", "O(n)", "O(log n)", "O(n log n)"],
+                answer: "O(1)"
+            }, {
+                question: "Searching: Binary search works on?",
+                options: ["Sorted array", "Unsorted array", "Linked List", "Stack"],
+                answer: "Sorted array"
+            }, {
+                question: "Searching: Binary search complexity?",
+                options: ["O(log n)", "O(n)", "O(n log n)", "O(1)"],
+                answer: "O(log n)"
+            }, {
+                question: "Searching: Ternary search splits array into?",
+                options: ["3 parts", "2 parts", "4 parts", "5 parts"],
+                answer: "3 parts"
+            }, {
+                question: "Searching: Interpolation search best-case?",
+                options: ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+                answer: "O(1)"
+            }, {
+                question: "Searching: Jump search works on?",
+                options: ["Sorted array", "Unsorted array", "Linked List", "Stack"],
+                answer: "Sorted array"
+            }, {
+                question: "Searching: Exponential search best-case?",
+                options: ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+                answer: "O(1)"
+            },
+
+            // Dynamic Programming 
+            {
+                question: "DP: Fibonacci optimized with DP complexity?",
+                options: ["O(n)", "O(2^n)", "O(log n)", "O(n^2)"],
+                answer: "O(n)"
+            }, {
+                question: "DP: Memoization is?",
+                options: ["Top-down", "Bottom-up", "Iterative", "Greedy"],
+                answer: "Top-down"
+            }, {
+                question: "DP: Tabulation is?",
+                options: ["Bottom-up", "Top-down", "Recursive", "Divide and Conquer"],
+                answer: "Bottom-up"
+            }, {
+                question: "DP: Knapsack problem type?",
+                options: ["0-1", "Fractional", "Greedy", "Graph"],
+                answer: "0-1"
+            }, {
+                question: "DP: Longest Common Subsequence complexity?",
+                options: ["O(m*n)", "O(n)", "O(n log n)", "O(n^2 log n)"],
+                answer: "O(m*n)"
+            }, {
+                question: "DP: Coin Change problem optimal?",
+                options: ["Dynamic Programming", "Greedy", "Brute Force", "DFS"],
+                answer: "Dynamic Programming"
+            }, {
+                question: "DP: Optimal substructure property?",
+                options: ["Yes", "No", "Sometimes", "Depends"],
+                answer: "Yes"
+            },
+
+            // Graph Algorithms 
+            {
+                question: "Graph: BFS complexity?",
+                options: ["O(V+E)", "O(V^2)", "O(E^2)", "O(log V)"],
+                answer: "O(V+E)"
+            }, {
+                question: "Graph: DFS uses?",
+                options: ["Stack", "Queue", "Heap", "Priority Queue"],
+                answer: "Stack"
+            }, {
+                question: "Graph: Dijkstra finds?",
+                options: ["Shortest path", "MST", "DFS", "BFS"],
+                answer: "Shortest path"
+            }, {
+                question: "Graph: Prim's algorithm finds?",
+                options: ["MST", "Shortest path", "DFS", "BFS"],
+                answer: "MST"
+            }, {
+                question: "Graph: Kruskal's algorithm?",
+                options: ["MST", "Shortest path", "DFS", "BFS"],
+                answer: "MST"
+            }, {
+                question: "Graph: Topological sort works on?",
+                options: ["DAG", "Cyclic", "Any Graph", "Tree"],
+                answer: "DAG"
+            }, {
+                question: "Graph: Bellman-Ford detects?",
+                options: ["Negative cycle", "Positive cycle", "MST", "DFS"],
+                answer: "Negative cycle"
+            }, {
+                question: "Graph: Floyd-Warshall complexity?",
+                options: ["O(V^3)", "O(E)", "O(V+E)", "O(V^2)"],
+                answer: "O(V^3)"
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz');
+        let currentAnswers = [];
+
+        function loadQuiz() {
+            quizContainer.innerHTML = '';
+            quizData.forEach((q, index) => {
+                const questionEl = document.createElement('div');
+                questionEl.classList.add('question');
+                let optionsHTML = '<ul class="options">';
+                q.options.forEach(opt => {
+                    optionsHTML += `<li><label><input type="radio" name="q${index}" value="${opt}"> ${opt}</label></li>`;
+                });
+                optionsHTML += '</ul>';
+                questionEl.innerHTML = `<h3>Q${index+1}. ${q.question}</h3>${optionsHTML}`;
+                quizContainer.appendChild(questionEl);
+            });
+            const submitBtn = document.createElement('button');
+            submitBtn.innerText = "Submit Answers";
+            submitBtn.onclick = reviewQuiz;
+            quizContainer.appendChild(submitBtn);
+        }
+
+        function reviewQuiz() {
+            let score = 0;
+            currentAnswers = [];
+            quizData.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selected && selected.value === q.answer) score++;
+                currentAnswers.push(selected ? selected.value : "Not answered");
+            });
+            quizContainer.innerHTML = `<h2>Your Score: ${score}/${quizData.length}</h2>`;
+            const reviewBtn = document.createElement('button');
+            reviewBtn.innerText = "Review Answers";
+            reviewBtn.onclick = reviewAnswers;
+            quizContainer.appendChild(reviewBtn);
+        }
+
+        function reviewAnswers() {
+            quizContainer.innerHTML = '<h2>Review Your Answers</h2>';
+            quizData.forEach((q, index) => {
+                const userAnswer = currentAnswers[index];
+                const correct = q.answer;
+                const qDiv = document.createElement('div');
+                qDiv.classList.add('question');
+                qDiv.innerHTML = `<h3>Q${index+1}. ${q.question}</h3>
+                      <p>Your Answer: <strong>${userAnswer}</strong></p>
+                      <p>Correct Answer: <strong>${correct}</strong></p>`;
+                quizContainer.appendChild(qDiv);
+            });
+        }
+
+
+        function reviewQuiz() {
+            let score = 0;
+            currentAnswers = [];
+            quizData.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selected && selected.value === q.answer) score++;
+                currentAnswers.push(selected ? selected.value : "Not answered");
+            });
+
+            quizContainer.innerHTML = `<h2>Your Score: ${score}/${quizData.length}</h2>`;
+
+            // Review Button
+            const reviewBtn = document.createElement('button');
+            reviewBtn.innerText = "Review Answers";
+            reviewBtn.onclick = reviewAnswers;
+            quizContainer.appendChild(reviewBtn);
+
+            // Retry Button
+            const retryBtn = document.createElement('button');
+            retryBtn.innerText = "Retry Quiz";
+            retryBtn.style.marginLeft = "10px";
+            retryBtn.onclick = loadQuiz; // reload the quiz
+            quizContainer.appendChild(retryBtn);
+        }
+
+        function reviewAnswers() {
+            quizContainer.innerHTML = '<h2>Review Your Answers</h2>';
+            quizData.forEach((q, index) => {
+                const userAnswer = currentAnswers[index];
+                const correct = q.answer;
+                const qDiv = document.createElement('div');
+                qDiv.classList.add('question');
+                qDiv.innerHTML = `<h3>Q${index+1}. ${q.question}</h3>
+                      <p>Your Answer: <strong>${userAnswer}</strong></p>
+                      <p>Correct Answer: <strong>${correct}</strong></p>`;
+                quizContainer.appendChild(qDiv);
+            });
+
+            // Retry Button
+            const retryBtn = document.createElement('button');
+            retryBtn.innerText = "Retry Quiz";
+            retryBtn.onclick = loadQuiz;
+            quizContainer.appendChild(retryBtn);
+        }
+        window.onload = loadQuiz;
+    </script>
+</body>
+
+</html>

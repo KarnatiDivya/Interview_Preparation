@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://tse4.mm.bing.net/th/id/OIP.pF1zeNognMixs_LVQq5RYgHaHa?pid=Api&P=0&h=180">
+    <title>English Grammar Quiz</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f0f4ff;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #1a237e;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+        }
+        
+        button {
+            cursor: pointer;
+            background: #1a237e;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        
+        button:hover {
+            background: #3949ab;
+        }
+        
+        .question {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-left: 5px solid #1a237e;
+            border-radius: 8px;
+        }
+        
+        .options label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+        }
+        
+        .review {
+            background: #e8f0fe;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>English Grammar Quiz</h1>
+
+        <!-- Quiz Questions -->
+        <div id="quiz"></div>
+
+        <!-- Buttons -->
+        <div class="btn-group">
+            <button id="submitQuiz">Submit Quiz</button>
+            <button id="retryQuiz">Retry Quiz</button>
+        </div>
+
+        <!-- Review -->
+        <div id="review" class="review"></div>
+
+        <!-- Go Home -->
+        <button id="goHome" style="display:none;">Go to Home</button>
+    </div>
+    </div>
+    <div style="text-align:center; margin:30px 0;">
+        <a href="./Home.html" style="display:inline-block; padding:10px 20px; background:#007bff; color:white; border-radius:6px; text-decoration:none; transition:0.3s;">
+    Go to Home
+  </a>
+    </div>
+
+    <script>
+        // Sample 30 English grammar & communication MCQs
+        const quizData = [{
+            question: "Choose the correct sentence:",
+            options: ["He go to school.", "He goes to school.", "He going to school.", "He gone to school."],
+            answer: "He goes to school."
+        }, {
+            question: "Choose the correct form: She ____ a book.",
+            options: ["read", "reads", "reading", "runned"],
+            answer: "reads"
+        }, {
+            question: "Identify the noun in: The cat is sleeping.",
+            options: ["cat", "is", "sleeping", "The"],
+            answer: "cat"
+        }, {
+            question: "Choose the correct preposition: She is good ____ math.",
+            options: ["in", "on", "at", "for"],
+            answer: "at"
+        }, {
+            question: "Choose the synonym of 'Happy'",
+            options: ["Sad", "Joyful", "Angry", "Tired"],
+            answer: "Joyful"
+        }, {
+            question: "Choose the antonym of 'Increase'",
+            options: ["Rise", "Expand", "Decrease", "Grow"],
+            answer: "Decrease"
+        }, {
+            question: "Correct sentence:",
+            options: ["I have seen him yesterday.", "I saw him yesterday.", "I seen him yesterday.", "I see him yesterday."],
+            answer: "I saw him yesterday."
+        }, {
+            question: "Choose correct article: I saw ____ elephant.",
+            options: ["an", "a", "the", "no article"],
+            answer: "an"
+        }, {
+            question: "Identify the adjective: The tall building is new.",
+            options: ["tall", "building", "is", "new"],
+            answer: "tall"
+        }, {
+            question: "Fill in the blank: I ____ to the market.",
+            options: ["go", "goes", "went", "gone"],
+            answer: "went"
+        }, {
+            question: "Correct tense: She ____ already finished her work.",
+            options: ["have", "has", "had", "having"],
+            answer: "has"
+        }, {
+            question: "Choose correct plural: Child",
+            options: ["Childs", "Childes", "Children", "Child"],
+            answer: "Children"
+        }, {
+            question: "Select correct sentence:",
+            options: ["There is many books.", "There are many books.", "There be many books.", "There was many books."],
+            answer: "There are many books."
+        }, {
+            question: "Identify verb: She sings beautifully.",
+            options: ["She", "sings", "beautifully", "None"],
+            answer: "sings"
+        }, {
+            question: "Choose the correct conjunction: I was tired ____ I continued working.",
+            options: ["but", "and", "so", "or"],
+            answer: "but"
+        }, {
+            question: "Select correct sentence:",
+            options: ["He don't like ice cream.", "He doesn't likes ice cream.", "He doesn't like ice cream.", "He don't likes ice cream."],
+            answer: "He doesn't like ice cream."
+        }, {
+            question: "Identify pronoun: She is my friend.",
+            options: ["She", "my", "friend", "is"],
+            answer: "She"
+        }, {
+            question: "Choose correct comparative: This book is ____ than that one.",
+            options: ["good", "better", "best", "more good"],
+            answer: "better"
+        }, {
+            question: "Choose correct spelling:",
+            options: ["Recieve", "Receive", "Receeve", "Recive"],
+            answer: "Receive"
+        }, {
+            question: "Identify adverb: She runs quickly.",
+            options: ["She", "runs", "quickly", "None"],
+            answer: "quickly"
+        }, {
+            question: "Fill in the blank: I have lived here ____ five years.",
+            options: ["since", "for", "from", "at"],
+            answer: "for"
+        }, {
+            question: "Correct sentence:",
+            options: ["He can plays football.", "He can play football.", "He can playing football.", "He can played football."],
+            answer: "He can play football."
+        }, {
+            question: "Choose correct tense: By next year, I ____ my degree.",
+            options: ["will complete", "will have completed", "completed", "complete"],
+            answer: "will have completed"
+        }, {
+            question: "Select correct sentence:",
+            options: ["Who are you?", "Whom are you?", "Whose are you?", "Who you are?"],
+            answer: "Who are you?"
+        }, {
+            question: "Choose correct article: She is ____ honest woman.",
+            options: ["a", "an", "the", "no article"],
+            answer: "an"
+        }, {
+            question: "Correct form: Neither of them ____ ready.",
+            options: ["is", "are", "was", "were"],
+            answer: "is"
+        }, {
+            question: "Choose correct sentence:",
+            options: ["I look forward to meet you.", "I look forward to meeting you.", "I look forward meeting you.", "I look forward meet with you."],
+            answer: "I look forward to meeting you."
+        }, {
+            question: "Identify adverb of frequency: She always arrives on time.",
+            options: ["She", "always", "arrives", "on time"],
+            answer: "always"
+        }, {
+            question: "Choose correct tense: I ____ this movie before.",
+            options: ["see", "saw", "have seen", "seeing"],
+            answer: "have seen"
+        }, {
+            question: "Choose correct sentence:",
+            options: ["Its a beautiful day.", "It's a beautiful day.", "Its' a beautiful day.", "It is' a beautiful day."],
+            answer: "It's a beautiful day"
+        }, {
+            question: "Identify the preposition: The book is on the table.",
+            options: ["book", "on", "table", "is"],
+            answer: "on"
+        }];
+
+        const quizDiv = document.getElementById('quiz');
+        const submitBtn = document.getElementById('submitQuiz');
+        const retryBtn = document.getElementById('retryQuiz');
+        const reviewDiv = document.getElementById('review');
+        const goHomeBtn = document.getElementById('goHome');
+
+        let userAnswers = new Array(quizData.length).fill(null);
+
+        // Render quiz
+        quizData.forEach((q, index) => {
+            const qDiv = document.createElement('div');
+            qDiv.classList.add('question');
+            qDiv.innerHTML = `<strong>${index+1}. ${q.question}</strong>`;
+            const optionsDiv = document.createElement('div');
+            optionsDiv.classList.add('options');
+            q.options.forEach(opt => {
+                const label = document.createElement('label');
+                label.innerHTML = `<input type="radio" name="q${index}" value="${opt}"> ${opt}`;
+                optionsDiv.appendChild(label);
+            });
+            qDiv.appendChild(optionsDiv);
+            quizDiv.appendChild(qDiv);
+        });
+
+        document.querySelectorAll('.options input').forEach(input => {
+            input.addEventListener('change', (e) => {
+                const qIndex = parseInt(e.target.name.substring(1));
+                userAnswers[qIndex] = e.target.value;
+            });
+        });
+
+        // Submit Quiz
+        submitBtn.addEventListener('click', () => {
+            let score = 0;
+            let reviewHTML = "<h3>Review:</h3>";
+            quizData.forEach((q, index) => {
+                const userAnswer = userAnswers[index] || "Not Answered";
+                const correct = q.answer;
+                if (userAnswer === correct) score++;
+                reviewHTML += `<p>${index+1}. ${q.question}<br>Your Answer: ${userAnswer} | Correct Answer: ${correct}</p>`;
+            });
+            reviewHTML += `<h4>Score: ${score} / ${quizData.length}</h4>`;
+            reviewDiv.innerHTML = reviewHTML;
+            reviewDiv.style.display = 'block';
+            goHomeBtn.style.display = 'block';
+        });
+
+        // Retry Quiz
+        retryBtn.addEventListener('click', () => {
+            userAnswers = new Array(quizData.length).fill(null);
+            const radios = document.querySelectorAll('input[type="radio"]');
+            radios.forEach(r => r.checked = false);
+            reviewDiv.style.display = 'none';
+            goHomeBtn.style.display = 'none';
+        });
+
+        // Go Home
+        goHomeBtn.addEventListener('click', () => {
+            window.location.href = 'Home.html';
+        });
+    </script>
+</body>
+
+</html>

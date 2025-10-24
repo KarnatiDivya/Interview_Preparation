@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://tse3.mm.bing.net/th/id/OIP.bRIfXsVWnUMgFjgK9e4MwgHaDh?pid=Api&P=0&h=180">
+    <title>Resume Builder</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f0f4ff;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #1a237e;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+        }
+        
+        input[type=file] {
+            margin: 20px 0;
+        }
+        
+        button {
+            cursor: pointer;
+            background: #1a237e;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        
+        button:hover {
+            background: #3949ab;
+        }
+        
+        .review {
+            background: #e8f0fe;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Resume Builder & Review</h1>
+
+        <input type="file" id="resumeFile" accept=".txt,.pdf">
+        <button id="analyzeBtn">Analyze Resume</button>
+        <div id="review" class="review"></div>
+        <button id="goHome" style="display:none;">Go to Home</button>
+    </div>
+    <div style="text-align:center; margin:30px 0;">
+        <a href="./Home.html" style="display:inline-block; padding:10px 20px; background:#007bff; color:white; border-radius:6px; text-decoration:none; transition:0.3s;">
+    Go to Home
+  </a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script>
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const reviewDiv = document.getElementById('review');
+        const goHomeBtn = document.getElementById('goHome');
+        const resumeFile = document.getElementById('resumeFile');
+
+        analyzeBtn.addEventListener('click', () => {
+            const file = resumeFile.files[0];
+            if (!file) {
+                alert("Please upload a resume file (.txt or .pdf)");
+                return;
+            }
+
+            const fileExt = file.name.split('.').pop().toLowerCase();
+            if (fileExt === 'txt') {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const text = e.target.result;
+                    analyzeText(text);
+                };
+                reader.readAsText(file);
+            } else if (fileExt === 'pdf') {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const typedarray = new Uint8Array(e.target.result);
+                    pdfjsLib.getDocument(typedarray).promise.then(pdf => {
+                        let textContent = '';
+                        const pagePromises = [];
+                        for (let i = 1; i <= pdf.numPages; i++) {
+                            pagePromises.push(pdf.getPage(i).then(page => {
+                                return page.getTextContent().then(tc => {
+                                    return tc.items.map(item => item.str).join(' ');
+                                });
+                            }));
+                        }
+                        Promise.all(pagePromises).then(pages => {
+                            analyzeText(pages.join(' '));
+                        });
+                    });
+                };
+                reader.readAsArrayBuffer(file);
+            } else {
+                alert("Unsupported file type. Use .txt or .pdf");
+            }
+        });
+
+        function analyzeText(text) {
+            text = text.toLowerCase();
+            let positives = [];
+            let negatives = [];
+
+            // Check common positives
+            if (text.includes("experience") || text.includes("worked")) positives.push("Work experience mentioned");
+            if (text.includes("project")) positives.push("Projects listed");
+            if (text.includes("skill")) positives.push("Skills mentioned");
+            if (text.includes("education") || text.includes("university")) positives.push("Education details included");
+            if (text.includes("lead") || text.includes("managed")) positives.push("Leadership/Responsibility mentioned");
+
+            // Check common improvements
+            if (!text.includes("objective") && !text.includes("summary")) negatives.push("No career objective/summary found");
+            if (!text.includes("skill") && !text.includes("technologies")) negatives.push("Skills/Technologies not clearly mentioned");
+            if (text.split(/\s+/).length < 50) negatives.push("Resume is too short, consider adding more details");
+            if (!text.includes("project")) negatives.push("No projects mentioned, add relevant projects");
+            if (!text.includes("contact") && !text.includes("email")) negatives.push("Contact information missing");
+
+            let reviewHTML = "<h3>Resume Review:</h3>";
+            if (positives.length > 0) {
+                reviewHTML += "<h4>Positives:</h4><ul>";
+                positives.forEach(p => reviewHTML += `<li>${p}</li>`);
+                reviewHTML += "</ul>";
+            }
+            if (negatives.length > 0) {
+                reviewHTML += "<h4>Areas to Improve:</h4><ul>";
+                negatives.forEach(n => reviewHTML += `<li>${n}</li>`);
+                reviewHTML += "</ul>";
+            }
+            reviewDiv.innerHTML = reviewHTML;
+            reviewDiv.style.display = 'block';
+            goHomeBtn.style.display = 'block';
+        }
+
+        goHomeBtn.addEventListener('click', () => {
+            window.location.href = 'Home.html';
+        });
+    </script>
+</body>
+
+</html>

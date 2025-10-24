@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://tse4.mm.bing.net/th/id/OIP.mgHjOhz7iWtuhIFHa3alwAHaHa?pid=Api&P=0&h=180">
+    <title>Data Structures Quiz | InterviewPrep Hub</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f9fbff;
+            margin: 0;
+            color: #333;
+        }
+        
+        nav {
+            background: #003366;
+            padding: 15px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            margin: 0;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #ffcc00;
+        }
+        
+        .hero {
+            background: #007bff;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .hero h1 {
+            margin-bottom: 10px;
+        }
+        
+        .hero p {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        
+        .quiz-container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question {
+            margin-bottom: 20px;
+        }
+        
+        .question h3 {
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+        
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .options li {
+            margin-bottom: 8px;
+        }
+        
+        .options input {
+            margin-right: 10px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+        
+        button:hover {
+            background: #0056b3;
+        }
+        
+        .result {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #e6f7ff;
+            border-left: 4px solid #007bff;
+        }
+        
+        .result p {
+            margin: 0;
+        }
+        
+        footer {
+            background: #003366;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">InterviewPrep Hub</div>
+
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1>Data Structures Quiz</h1>
+        <p>Answer all 30 questions covering Arrays, Linked Lists, Stacks, Queues, and Trees. Review your score at the end.</p>
+    </section>
+
+    <!-- QUIZ CONTAINER -->
+    <div class="quiz-container" id="quiz"></div>
+    <div style="text-align:center; margin:30px 0;">
+        <a href="../Home.html" style="display:inline-block; padding:10px 20px; background:#007bff; color:white; border-radius:6px; text-decoration:none; transition:0.3s;">
+    Go to Home
+  </a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 All Rights Reserved | Designed by <strong>Karnati Divya</strong></p>
+    </footer>
+
+    <script>
+        const quizData = [
+            // Arrays (6 Questions)
+            {
+                question: "Arrays: Index of first element?",
+                options: ["0", "1", "-1", "Depends on language"],
+                answer: "0"
+            }, {
+                question: "Arrays: Method to add element at end in JS?",
+                options: ["push()", "pop()", "shift()", "unshift()"],
+                answer: "push()"
+            }, {
+                question: "Arrays: Access last element?",
+                options: ["array[array.length-1]", "array[-1]", "array.last()", "array[length]"],
+                answer: "array[array.length-1]"
+            }, {
+                question: "Arrays: Length of array?",
+                options: ["array.length", "array.size()", "length(array)", "size(array)"],
+                answer: "array.length"
+            }, {
+                question: "Arrays: Sort elements in place?",
+                options: ["sort()", "sorted()", "order()", "arrange()"],
+                answer: "sort()"
+            }, {
+                question: "Arrays: Removes first element?",
+                options: ["shift()", "pop()", "unshift()", "slice()"],
+                answer: "shift()"
+            },
+
+            // Linked Lists (6 Questions)
+            {
+                question: "Linked List: Type that points both directions?",
+                options: ["Doubly", "Singly", "Circular", "None"],
+                answer: "Doubly"
+            }, {
+                question: "Linked List: Time complexity to access n-th element?",
+                options: ["O(n)", "O(1)", "O(log n)", "O(n^2)"],
+                answer: "O(n)"
+            }, {
+                question: "Linked List: Insertion at head is?",
+                options: ["O(1)", "O(n)", "O(log n)", "O(n^2)"],
+                answer: "O(1)"
+            }, {
+                question: "Linked List: Insertion at tail of singly LL?",
+                options: ["O(n)", "O(1)", "O(log n)", "O(n^2)"],
+                answer: "O(n)"
+            }, {
+                question: "Linked List: Circular LL points?",
+                options: ["Last node to first", "First to last", "Middle to head", "None"],
+                answer: "Last node to first"
+            }, {
+                question: "Linked List: Best for frequent insertions/deletions?",
+                options: ["LL", "Array", "Stack", "Queue"],
+                answer: "LL"
+            },
+
+            // Stacks (6 Questions)
+            {
+                question: "Stack: Follows which order?",
+                options: ["LIFO", "FIFO", "Random", "Priority"],
+                answer: "LIFO"
+            }, {
+                question: "Stack: Push operation?",
+                options: ["Add element to top", "Remove top", "Peek top", "Insert at bottom"],
+                answer: "Add element to top"
+            }, {
+                question: "Stack: Pop operation?",
+                options: ["Remove top element", "Add top", "Peek bottom", "Insert"],
+                answer: "Remove top element"
+            }, {
+                question: "Stack: Time complexity for push/pop?",
+                options: ["O(1)", "O(n)", "O(log n)", "O(n^2)"],
+                answer: "O(1)"
+            }, {
+                question: "Stack: Real-world example?",
+                options: ["Undo in editor", "Queue in bank", "Circular list", "Array"],
+                answer: "Undo in editor"
+            }, {
+                question: "Stack: Peek operation?",
+                options: ["View top element", "Remove top", "View bottom", "Add top"],
+                answer: "View top element"
+            },
+
+            // Queues (6 Questions)
+            {
+                question: "Queue: Follows which order?",
+                options: ["FIFO", "LIFO", "Random", "Priority"],
+                answer: "FIFO"
+            }, {
+                question: "Queue: Enqueue operation?",
+                options: ["Add to rear", "Remove front", "Add front", "Remove rear"],
+                answer: "Add to rear"
+            }, {
+                question: "Queue: Dequeue operation?",
+                options: ["Remove front", "Add rear", "Remove rear", "Peek rear"],
+                answer: "Remove front"
+            }, {
+                question: "Queue: Circular Queue is?",
+                options: ["Rear connects to front", "Front connects to rear", "Stack", "Array"],
+                answer: "Rear connects to front"
+            }, {
+                question: "Queue: Time complexity enqueue/dequeue?",
+                options: ["O(1)", "O(n)", "O(log n)", "O(n^2)"],
+                answer: "O(1)"
+            }, {
+                question: "Queue: Real-world example?",
+                options: ["Printer queue", "Undo editor", "Call stack", "Array"],
+                answer: "Printer queue"
+            },
+
+            // Trees (6 Questions)
+            {
+                question: "Tree: Root node has?",
+                options: ["No parent", "Multiple parents", "One child", "None"],
+                answer: "No parent"
+            }, {
+                question: "Tree: Binary tree max children?",
+                options: ["2", "1", "3", "4"],
+                answer: "2"
+            }, {
+                question: "Tree: BST property?",
+                options: ["Left<Root<Right", "Left>Root>Right", "Left=Root=Right", "None"],
+                answer: "Left<Root<Right"
+            }, {
+                question: "Tree: Inorder traversal order?",
+                options: ["Left,Root,Right", "Root,Left,Right", "Right,Root,Left", "Left,Right,Root"],
+                answer: "Left,Root,Right"
+            }, {
+                question: "Tree: Height of tree?",
+                options: ["Longest path from root to leaf", "Shortest path", "Number of nodes", "None"],
+                answer: "Longest path from root to leaf"
+            }, {
+                question: "Tree: Leaf node has?",
+                options: ["No children", "One child", "Two children", "Depends"],
+                answer: "No children"
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz');
+        let currentAnswers = [];
+
+        function loadQuiz() {
+            quizContainer.innerHTML = '';
+            quizData.forEach((q, index) => {
+                const questionEl = document.createElement('div');
+                questionEl.classList.add('question');
+                let optionsHTML = '<ul class="options">';
+                q.options.forEach(opt => {
+                    optionsHTML += `<li><label><input type="radio" name="q${index}" value="${opt}"> ${opt}</label></li>`;
+                });
+                optionsHTML += '</ul>';
+                questionEl.innerHTML = `<h3>Q${index+1}. ${q.question}</h3>${optionsHTML}`;
+                quizContainer.appendChild(questionEl);
+            });
+            const submitBtn = document.createElement('button');
+            submitBtn.innerText = "Submit Answers";
+            submitBtn.onclick = reviewQuiz;
+            quizContainer.appendChild(submitBtn);
+        }
+
+        function reviewQuiz() {
+            let score = 0;
+            currentAnswers = [];
+            quizData.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selected && selected.value === q.answer) score++;
+                currentAnswers.push(selected ? selected.value : "Not answered");
+            });
+            quizContainer.innerHTML = `<h2>Your Score: ${score}/${quizData.length}</h2>`;
+            const reviewBtn = document.createElement('button');
+            reviewBtn.innerText = "Review Answers";
+            reviewBtn.onclick = reviewAnswers;
+            quizContainer.appendChild(reviewBtn);
+        }
+
+        function reviewAnswers() {
+            quizContainer.innerHTML = '<h2>Review Your Answers</h2>';
+            quizData.forEach((q, index) => {
+                const userAnswer = currentAnswers[index];
+                const correct = q.answer;
+                const qDiv = document.createElement('div');
+                qDiv.classList.add('question');
+                qDiv.innerHTML = `<h3>Q${index+1}. ${q.question}</h3>
+                      <p>Your Answer: <strong>${userAnswer}</strong></p>
+                      <p>Correct Answer: <strong>${correct}</strong></p>`;
+                quizContainer.appendChild(qDiv);
+            });
+        }
+
+        window.onload = loadQuiz;
+
+        function reviewQuiz() {
+            let score = 0;
+            currentAnswers = [];
+            quizData.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selected && selected.value === q.answer) score++;
+                currentAnswers.push(selected ? selected.value : "Not answered");
+            });
+
+            quizContainer.innerHTML = `<h2>Your Score: ${score}/${quizData.length}</h2>`;
+
+            // Review Button
+            const reviewBtn = document.createElement('button');
+            reviewBtn.innerText = "Review Answers";
+            reviewBtn.onclick = reviewAnswers;
+            quizContainer.appendChild(reviewBtn);
+
+            // Retry Button
+            const retryBtn = document.createElement('button');
+            retryBtn.innerText = "Retry Quiz";
+            retryBtn.style.marginLeft = "10px";
+            retryBtn.onclick = loadQuiz; // reload the quiz
+            quizContainer.appendChild(retryBtn);
+        }
+
+        function reviewAnswers() {
+            quizContainer.innerHTML = '<h2>Review Your Answers</h2>';
+            quizData.forEach((q, index) => {
+                const userAnswer = currentAnswers[index];
+                const correct = q.answer;
+                const qDiv = document.createElement('div');
+                qDiv.classList.add('question');
+                qDiv.innerHTML = `<h3>Q${index+1}. ${q.question}</h3>
+                      <p>Your Answer: <strong>${userAnswer}</strong></p>
+                      <p>Correct Answer: <strong>${correct}</strong></p>`;
+                quizContainer.appendChild(qDiv);
+            });
+
+            // Retry Button
+            const retryBtn = document.createElement('button');
+            retryBtn.innerText = "Retry Quiz";
+            retryBtn.onclick = loadQuiz;
+            quizContainer.appendChild(retryBtn);
+        }
+    </script>
+</body>
+
+</html>

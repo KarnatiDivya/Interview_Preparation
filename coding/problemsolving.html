@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://tse1.mm.bing.net/th/id/OIP.-Urm0crG9au7snoXIaw6wAHaE8?pid=Api&P=0&h=180">
+    <title>Problem Solving | InterviewPrep Hub</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f9fbff;
+            margin: 0;
+            color: #333;
+        }
+        
+        nav {
+            background: #003366;
+            padding: 15px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            margin: 0;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #ffcc00;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            color: #007bff;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-family: monospace;
+            font-size: 1rem;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+        
+        button:hover {
+            background: #0056b3;
+        }
+        
+        #timer {
+            font-size: 1.1rem;
+            color: red;
+            margin-bottom: 15px;
+        }
+        
+        .review-question {
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        
+        .go-home {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .go-home a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .go-home a:hover {
+            background: #0056b3;
+        }
+        
+        footer {
+            background: #003366;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">InterviewPrep Hub</div>
+        <ul>
+            <li><a href="Home.html">Home</a></li>
+            <li><a href="coding.html" style="color:#ffcc00;">Coding</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container" id="topic-selection">
+        <h2>Select a Topic</h2>
+        <select id="topic-select">
+    <option value="">-- Choose Topic --</option>
+    <option value="arrays">Arrays</option>
+    <option value="linkedlists">Linked Lists</option>
+    <option value="stacksqueues">Stacks & Queues</option>
+    <option value="trees">Trees</option>
+    <option value="sorting">Sorting</option>
+    <option value="searching">Searching</option>
+    <option value="dp">Dynamic Programming</option>
+    <option value="graphs">Graphs</option>
+    <option value="logic">Logic / Puzzles</option>
+  </select>
+        <button onclick="startTopic()">Start Quiz</button>
+    </div>
+
+    <div class="container" id="quiz-container" style="display:none;">
+        <h2 id="topic-title"></h2>
+        <div id="timer">Time Left: 10:00</div>
+        <div id="question-container">
+            <h3 id="question-title"></h3>
+            <textarea id="answer" placeholder="Write your solution here..." rows="10"></textarea>
+        </div>
+        <button id="next-btn">Next Question</button>
+    </div>
+
+    <div class="container" id="review-container" style="display:none;">
+        <h2>Review Your Solutions</h2>
+        <div id="review-list"></div>
+        <button onclick="retryQuiz()">Retry Quiz</button>
+    </div>
+
+    <div class="go-home">
+        <a href="../Home.html">Go to Home</a>
+    </div>
+
+    <footer>
+        <p>© 2025 All Rights Reserved | Designed by <strong>Karnati Divya</strong></p>
+    </footer>
+
+    <script>
+        // Questions for each topic (10 questions each)
+        const topics = {
+            arrays: [
+                "Reverse an array without using built-in reverse function.",
+                "Find the maximum element in an array.",
+                "Find the minimum element in an array.",
+                "Compute the sum of all elements in an array.",
+                "Find the average of array elements.",
+                "Move all zeros to the end of array.",
+                "Find the second largest element in an array.",
+                "Remove duplicates from an array.",
+                "Find the missing number in a consecutive array.",
+                "Rotate array by k positions."
+            ],
+            linkedlists: [
+                "Reverse a singly linked list.",
+                "Detect a cycle in a linked list.",
+                "Find the middle element of a linked list.",
+                "Merge two sorted linked lists.",
+                "Remove duplicates from a linked list.",
+                "Find nth node from end.",
+                "Check if linked list is palindrome.",
+                "Delete a node in O(1) time.",
+                "Find intersection of two linked lists.",
+                "Add two numbers represented by linked lists."
+            ],
+            stacksqueues: [
+                "Implement stack using arrays.",
+                "Implement stack using linked list.",
+                "Implement queue using arrays.",
+                "Implement queue using linked list.",
+                "Evaluate postfix expression.",
+                "Convert infix to postfix.",
+                "Design a stack with getMin() in O(1).",
+                "Implement circular queue.",
+                "Next greater element problem.",
+                "Sort a stack using recursion."
+            ],
+            trees: [
+                "Find height of a binary tree.",
+                "Print inorder traversal.",
+                "Print preorder traversal.",
+                "Print postorder traversal.",
+                "Find lowest common ancestor.",
+                "Check if tree is balanced.",
+                "Diameter of a binary tree.",
+                "Level order traversal.",
+                "Serialize and deserialize a tree.",
+                "Count leaf nodes."
+            ],
+            sorting: [
+                "Implement bubble sort.",
+                "Implement selection sort.",
+                "Implement insertion sort.",
+                "Implement merge sort.",
+                "Implement quick sort.",
+                "Sort array of 0s,1s,2s.",
+                "Heap sort implementation.",
+                "Counting sort implementation.",
+                "Radix sort implementation.",
+                "Bucket sort implementation."
+            ],
+            searching: [
+                "Implement linear search.",
+                "Implement binary search.",
+                "Find first occurrence in sorted array.",
+                "Find last occurrence in sorted array.",
+                "Find peak element in array.",
+                "Search in rotated sorted array.",
+                "Search in matrix sorted row & column wise.",
+                "Find majority element.",
+                "Find smallest missing positive number.",
+                "Find pair with given sum in array."
+            ],
+            dp: [
+                "Fibonacci using DP.",
+                "0/1 Knapsack problem.",
+                "Coin change problem.",
+                "Longest common subsequence.",
+                "Longest increasing subsequence.",
+                "Matrix chain multiplication.",
+                "Min steps to 1 problem.",
+                "Subset sum problem.",
+                "Count ways to reach Nth stair.",
+                "Edit distance problem."
+            ],
+            graphs: [
+                "Implement BFS traversal.",
+                "Implement DFS traversal.",
+                "Detect cycle in directed graph.",
+                "Detect cycle in undirected graph.",
+                "Find shortest path (Dijkstra).",
+                "Find shortest path (Floyd Warshall).",
+                "Topological sort.",
+                "Check if graph is bipartite.",
+                "Find connected components.",
+                "Implement Kruskal's algorithm."
+            ],
+            logic: [
+                "Find next number in series: 2,4,8,16,...",
+                "Puzzle: 6 workers complete task in 12 days. 3 workers?",
+                "Riddle: What has keys but can't open locks?",
+                "Series: 1,1,2,3,5,... next?",
+                "Forward I am heavy, backward I am not. What am I?",
+                "Divide 30 by half and add 10?",
+                "What comes once in a minute, twice in a moment, never in thousand years?",
+                "I speak without mouth, hear without ears. What am I?",
+                "A farmer has 17 sheep, all but 9 die. How many left?",
+                "What has a neck but no head?"
+            ]
+        };
+
+        let currentTopic = "";
+        let questions = [];
+        let currentQuestion = 0;
+        let userAnswers = [];
+        let timer;
+        let timeLeft = 600;
+
+        function startTopic() {
+            const select = document.getElementById('topic-select');
+            currentTopic = select.value;
+            if (!currentTopic) {
+                alert("Please select a topic");
+                return;
+            }
+            questions = topics[currentTopic];
+            document.getElementById('topic-selection').style.display = 'none';
+            document.getElementById('quiz-container').style.display = 'block';
+            document.getElementById('topic-title').innerText = currentTopic.toUpperCase() + " Practice";
+            currentQuestion = 0;
+            userAnswers = [];
+            loadQuestion();
+        }
+
+        function startTimer() {
+            timeLeft = 600;
+            document.getElementById('timer').innerText = "Time Left: " + formatTime(timeLeft);
+            timer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timer').innerText = "Time Left: " + formatTime(timeLeft);
+                if (timeLeft <= 0) {
+                    alert("Time's up for this question!");
+                    saveAnswerAndNext();
+                }
+            }, 1000);
+        }
+
+        function formatTime(seconds) {
+            let m = Math.floor(seconds / 60);
+            let s = seconds % 60;
+            return `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+        }
+
+        function loadQuestion() {
+            if (currentQuestion < questions.length) {
+                document.getElementById('question-title').innerText = questions[currentQuestion];
+                document.getElementById('answer').value = "";
+                startTimer();
+            } else {
+                showReview();
+            }
+        }
+
+        function saveAnswerAndNext() {
+            clearInterval(timer);
+            const ans = document.getElementById('answer').value.trim();
+            userAnswers.push(ans || "Not Answered");
+            currentQuestion++;
+            loadQuestion();
+        }
+
+        function showReview() {
+            document.getElementById('quiz-container').style.display = 'none';
+            const review = document.getElementById('review-container');
+            review.style.display = 'block';
+            const reviewList = document.getElementById('review-list');
+            reviewList.innerHTML = "";
+            questions.forEach((q, index) => {
+                const div = document.createElement('div');
+                div.classList.add('review-question');
+                div.innerHTML = `<h3>${q}</h3><pre>${userAnswers[index]}</pre>`;
+                reviewList.appendChild(div);
+            });
+        }
+
+        function retryQuiz() {
+            document.getElementById('review-container').style.display = 'none';
+            document.getElementById('topic-selection').style.display = 'block';
+            document.getElementById('topic-select').value = "";
+        }
+        document.getElementById('next-btn').addEventListener('click', saveAnswerAndNext);
+    </script>
+
+</body>
+
+</html>

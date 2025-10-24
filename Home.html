@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/8273/8273004.png">
+
+    <title>Home | Interview Prep Kit</title>
+    <link rel="stylesheet" href="./Home.css">
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">SkillSprint</div>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#Home">Home</a></li>
+            <li><a href="#parctice">Practice</a></li>
+            <li><a href="#resource">Resources</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </nav>
+
+    <div class="content">
+        <h2 id="welcome"></h2>
+    </div>
+    <!-- Home section -->
+    <section id="Home" class="home-section">
+        <div class="home-text">
+            <h1>Get Ready to Ace Your Next Interview</h1>
+            <p>
+                Boost your confidence, sharpen your skills, and prepare smartly with our Interview Preparation Kit. Explore coding challenges, HR questions, and real interview scenarios — all in one place.
+            </p>
+            <a href="#resource" class="get-started-btn">Get Started</a>
+        </div>
+
+        <div class="home-image">
+            <img src="https://tse3.mm.bing.net/th/id/OIP.TveaP_SJelSrIUvQFKRb2AHaD4?pid=Api&P=0&h=180" alt="Interview Preparation" />
+        </div>
+    </section>
+
+    <!-- 🌟 PRACTICE SECTION -->
+    <section id="parctice" class="practice-section">
+        <h2>Practice Categories</h2>
+        <p class="subtitle">
+            Choose an area to strengthen your interview preparation.
+        </p>
+
+        <div class="practice-container">
+            <div class="practice-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/993/993928.png" alt="Coding Practice">
+                <h3>Coding Practice</h3>
+                <p>Sharpen your coding skills with data structures and algorithm problems.</p>
+                <button onclick="location.href='coding./coding.html'" class="practice-btn">Go to Practice</button>
+            </div>
+
+            <div class="practice-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/2541/2541988.png" alt="Aptitude Tests">
+                <h3>Aptitude Tests</h3>
+                <p>Improve logical reasoning, quantitative aptitude, and verbal skills.</p>
+                <button onclick="location.href='Apptitude.html'" class="practice-btn">Go to Practice</button>
+            </div>
+
+            <div class="practice-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/3662/3662842.png" alt="HR Questions">
+                <h3>HR Questions</h3>
+                <p>Prepare for common behavioral and personality-based interview questions.</p>
+                <button onclick="location.href='Hrround.html'" class="practice-btn">Go to Practice</button>
+            </div>
+
+            <div class="practice-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/2920/2920244.png" alt="Technical MCQs">
+                <h3>Technical MCQs</h3>
+                <p>Test your technical knowledge with quizzes on core subjects like Java, DBMS, and OS.</p>
+                <button onclick="location.href='Techical.html'" class="practice-btn">Go to Practice</button>
+            </div>
+
+            <div class="practice-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/1903/1903162.png" alt="English Grammar">
+                <h3>English Grammar</h3>
+                <p>Enhance your English communication and grammar skills for interviews.</p>
+                <button onclick="location.href='English.html'" class="practice-btn">Go to Practice</button>
+            </div>
+
+            <div class="practice-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/2103/2103633.png" alt="Resume Builder">
+                <h3>Resume Builder</h3>
+                <p>Learn how to craft a professional resume that impresses recruiters.</p>
+                <button onclick="location.href='Resume.html'" class="practice-btn">Go to Practice</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 📚 RESOURCES SECTION -->
+    <section id="resource" class="resources-section">
+        <h2>Resources</h2>
+        <p class="subtitle">Explore top study materials, guides, and tutorials to boost your preparation.</p>
+
+        <div class="resources-container">
+            <!-- Coding Resources -->
+            <div class="resource-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/3094/3094855.png" alt="Coding Resources">
+                <h3>Coding Resources</h3>
+                <p>Access tutorials, problem sets, and coding challenge platforms to enhance your programming skills.</p>
+                <button class="resource-btn" onclick="toggleResources('coding')">View Resources</button>
+
+                <ul id="coding" class="resource-list">
+                    <li><a href="https://leetcode.com" target="_blank" rel="noopener">LeetCode</a></li>
+                    <li><a href="https://www.geeksforgeeks.org" target="_blank" rel="noopener">GeeksforGeeks</a></li>
+                    <li><a href="https://www.hackerrank.com" target="_blank" rel="noopener">HackerRank</a></li>
+                    <li><a href="https://www.interviewbit.com" target="_blank" rel="noopener">InterviewBit</a></li>
+                    <li><a href="https://javascript.info" target="_blank" rel="noopener">JavaScript Info</a></li>
+                </ul>
+            </div>
+
+            <!-- Aptitude Resources -->
+            <div class="resource-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135692.png" alt="Aptitude Resources">
+                <h3>Aptitude Resources</h3>
+                <p>Download aptitude question banks, logical reasoning PDFs, and practice quizzes.</p>
+                <button class="resource-btn" onclick="toggleResources('aptitude')">View Resources</button>
+
+                <ul id="aptitude" class="resource-list">
+                    <li><a href="https://www.indiabix.com" target="_blank" rel="noopener">IndiaBix</a></li>
+                    <li><a href="https://www.pearson.com" target="_blank" rel="noopener">Quant & Reasoning PDFs</a></li>
+                    <li><a href="https://www.solvedpapers.co" target="_blank" rel="noopener">Sample Question Banks</a></li>
+                    <li><a href="https://www.careerride.com" target="_blank" rel="noopener">Practice Tests</a></li>
+                </ul>
+            </div>
+
+            <!-- Communication Skills -->
+            <div class="resource-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/1055/1055646.png" alt="Communication Skills">
+                <h3>Communication Skills</h3>
+                <p>Improve your English speaking and writing skills with grammar notes and spoken English videos.</p>
+                <button class="resource-btn" onclick="toggleResources('communication')">View Resources</button>
+
+                <ul id="communication" class="resource-list">
+                    <li><a href="https://www.grammarly.com/blog" target="_blank" rel="noopener">Grammar Tips (Grammarly)</a></li>
+                    <li><a href="https://www.youtube.com/results?search_query=spoken+english+lessons" target="_blank" rel="noopener">Spoken English Videos (YouTube)</a></li>
+                    <li><a href="https://owl.purdue.edu" target="_blank" rel="noopener">Purdue OWL – Writing</a></li>
+                    <li><a href="https://www.cambridge.org" target="_blank" rel="noopener">Cambridge English Resources</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🧠 ABOUT SECTION -->
+    <section class="about-section" id="about">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="https://cdn-icons-png.flaticon.com/512/4149/4149700.png" alt="About Us Image">
+            </div>
+
+            <div class="about-content">
+                <h2>About Us</h2>
+                <p>
+                    Welcome to <strong>InterviewPrep Hub</strong> — your one-stop destination for interview preparation! Our platform is designed to help students and job seekers strengthen their technical, aptitude, and communication skills through structured
+                    learning and practice resources.
+                </p>
+
+                <p>
+                    Whether you’re preparing for campus placements or professional interviews, we provide everything you need — coding practice, aptitude exercises, grammar lessons, and study materials — all in one place.
+                </p>
+
+                <p class="mission">
+                    <strong>Our Mission:</strong> Empower learners to build confidence and succeed in every interview.
+                </p>
+
+                <button class="about-btn">Learn More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 💬 CONTACT SECTION -->
+    <section class="contact-section" id="contact">
+        <h2>Contact Us</h2>
+        <p class="contact-subtitle">
+            Have a question or suggestion? We'd love to hear from you! Fill out the form below to get in touch.
+        </p>
+
+        <div class="contact-container">
+            <!-- Contact Form -->
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="Enter your name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <textarea id="message" rows="5" placeholder="Type your message here..." required></textarea>
+                </div>
+
+                <button type="submit" class="contact-btn">Send Message</button>
+
+                <!-- ✅ Success Message -->
+                <p id="successMsg" class="success-message" style="display:none;">✅ Message sent successfully!</p>
+            </form>
+
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Contact Illustration">
+                <h3>Get in Touch</h3>
+                <p>Email: <strong>support@interviewprephub.com</strong></p>
+                <p>Follow us on social media to stay updated with new resources and practice sets!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🌐 FOOTER SECTION -->
+    <footer class="footer">
+        <p>© 2025 All Rights Reserved | Designed by <strong>Karnati Divya</strong></p>
+        <p>
+            Email: <a href="mailto:divyareddykarnati9502@gmail.com">divyareddykarnati9502@gmail.com</a> | LinkedIn: <a href="https://www.linkedin.com/in/divyakarnati3/" target="_blank">Profile</a>
+        </p>
+    </footer>
+
+    <script src="./Home.js"></script>
+
+</body>
+
+</html>

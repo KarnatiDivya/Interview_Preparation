@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://tse3.mm.bing.net/th/id/OIP.j6cMkZI6Zp9osU9FXv3jawHaEh?pid=Api&P=0&h=180">
+    <title>Problem Solving Quiz</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f0f4ff;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #1a237e;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+        }
+        
+        select,
+        button {
+            padding: 12px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+        
+        button {
+            cursor: pointer;
+            background: #1a237e;
+            color: #fff;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #3949ab;
+        }
+        
+        .question {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-left: 5px solid #1a237e;
+            border-radius: 8px;
+        }
+        
+        .options label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+        }
+        
+        .review {
+            background: #e8f0fe;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .btn-group button {
+            width: 48%;
+            margin-right: 2%;
+        }
+        
+        #goHome {
+            margin-top: 20px;
+            background: #43a047;
+        }
+        
+        #goHome:hover {
+            background: #66bb6a;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Problem Solving Quiz</h1>
+
+        <!-- Select Topic -->
+        <label for="topic">Select Topic:</label>
+        <select id="topic">
+        <option value="">--Choose Topic--</option>
+        <option value="Numbers">Numbers</option>
+        <option value="Percentage">Percentage</option>
+        <option value="ProfitLoss">Profit and Loss</option>
+        <option value="Average">Average</option>
+        <option value="RatioProportion">Ratio and Proportion</option>
+        <option value="Mixture">Mixture and Alligation</option>
+        <option value="TimeWork">Time and Work</option>
+        <option value="TimeSpeedDistance">Time Speed Distance</option>
+        <option value="PipesCisterns">Pipes and Cisterns</option>
+        <option value="Algebra">Algebra</option>
+        <option value="Trigonometry">Trigonometry, Height, and Distance</option>
+        <option value="Geometry">Geometry</option>
+        <option value="Probability">Probability</option>
+        <option value="PnC">Permutation and Combination (PnC)</option>
+        <option value="Age">Age</option>
+    </select>
+
+        <!-- Quiz Questions -->
+        <div id="quiz" style="display:none;"></div>
+
+        <!-- Buttons -->
+        <div class="btn-group" style="display:none;">
+            <button id="submitQuiz">Submit Quiz</button>
+            <button id="retryQuiz">Retry</button>
+            <button id="reviewQuiz">Review Answers</button>
+        </div>
+
+        <!-- Review -->
+        <div id="review" class="review"></div>
+
+        <!-- Go Home -->
+        <button id="goHome" style="display:none;">Go to Home</button>
+    </div>
+    <div style="text-align:center; margin:30px 0;">
+        <a href="./Home.html" style="display:inline-block; padding:10px 20px; background:#007bff; color:white; border-radius:6px; text-decoration:none; transition:0.3s;">
+    Go to Home
+  </a>
+    </div>
+
+    <script>
+        const quizData = {
+            Numbers: generateSampleQuestions("Numbers"),
+            Percentage: generateSampleQuestions("Percentage"),
+            ProfitLoss: generateSampleQuestions("Profit and Loss"),
+            Average: generateSampleQuestions("Average"),
+            RatioProportion: generateSampleQuestions("Ratio and Proportion"),
+            Mixture: generateSampleQuestions("Mixture and Alligation"),
+            TimeWork: generateSampleQuestions("Time and Work"),
+            TimeSpeedDistance: generateSampleQuestions("Time Speed Distance"),
+            PipesCisterns: generateSampleQuestions("Pipes and Cisterns"),
+            Algebra: generateSampleQuestions("Algebra"),
+            Trigonometry: generateSampleQuestions("Trigonometry"),
+            Geometry: generateSampleQuestions("Geometry"),
+            Probability: generateSampleQuestions("Probability"),
+            PnC: generateSampleQuestions("Permutation and Combination"),
+            Age: generateSampleQuestions("Age")
+        };
+
+        function generateSampleQuestions(topic) {
+            const questions = [];
+            for (let i = 1; i <= 15; i++) {
+                questions.push({
+                    question: `Sample Question ${i} of ${topic}?`,
+                    options: ["Option A", "Option B", "Option C", "Option D"],
+                    answer: "Option A"
+                });
+            }
+            return questions;
+        }
+
+        const topicSelect = document.getElementById('topic');
+        const quizDiv = document.getElementById('quiz');
+        const submitBtn = document.getElementById('submitQuiz');
+        const retryBtn = document.getElementById('retryQuiz');
+        const reviewBtn = document.getElementById('reviewQuiz');
+        const reviewDiv = document.getElementById('review');
+        const goHomeBtn = document.getElementById('goHome');
+        const btnGroup = document.querySelector('.btn-group');
+
+        let currentTopic = "";
+        let userAnswers = [];
+
+        topicSelect.addEventListener('change', () => {
+            currentTopic = topicSelect.value;
+            if (currentTopic) {
+                renderQuiz(currentTopic);
+                quizDiv.style.display = 'block';
+                btnGroup.style.display = 'block';
+                reviewDiv.style.display = 'none';
+                goHomeBtn.style.display = 'none';
+            } else {
+                quizDiv.style.display = 'none';
+                btnGroup.style.display = 'none';
+            }
+        });
+
+        function renderQuiz(topic) {
+            const questions = quizData[topic] || [];
+            userAnswers = new Array(questions.length).fill(null);
+
+            quizDiv.innerHTML = '';
+            questions.forEach((q, index) => {
+                const qDiv = document.createElement('div');
+                qDiv.classList.add('question');
+                qDiv.innerHTML = `<strong>${index + 1}. ${q.question}</strong>`;
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.classList.add('options');
+
+                q.options.forEach(option => {
+                    const label = document.createElement('label');
+                    label.innerHTML = `<input type="radio" name="q${index}" value="${option}"> ${option}`;
+                    optionsDiv.appendChild(label);
+                });
+
+                qDiv.appendChild(optionsDiv);
+                quizDiv.appendChild(qDiv);
+            });
+
+            document.querySelectorAll('.options input').forEach(input => {
+                input.addEventListener('change', (e) => {
+                    const qIndex = parseInt(e.target.name.substring(1));
+                    userAnswers[qIndex] = e.target.value;
+                });
+            });
+        }
+
+        // Submit just locks answers
+        submitBtn.addEventListener('click', () => {
+            alert("Quiz Submitted! Click 'Review Answers' to see correct answers.");
+        });
+
+        // Review button shows answers and score
+        reviewBtn.addEventListener('click', () => {
+            const questions = quizData[currentTopic] || [];
+            let score = 0;
+            let reviewHTML = "<h3>Review:</h3>";
+            questions.forEach((q, index) => {
+                const userAnswer = userAnswers[index] || "Not Answered";
+                const correct = q.answer;
+                if (userAnswer === correct) score++;
+                reviewHTML += `<p>${index + 1}. ${q.question}<br>
+                       Your Answer: ${userAnswer} | Correct Answer: ${correct}</p>`;
+            });
+            reviewHTML += `<h4>Score: ${score} / ${questions.length}</h4>`;
+            reviewDiv.innerHTML = reviewHTML;
+            reviewDiv.style.display = 'block';
+            goHomeBtn.style.display = 'block';
+        });
+
+        // Retry resets quiz
+        retryBtn.addEventListener('click', () => {
+            renderQuiz(currentTopic);
+            reviewDiv.style.display = 'none';
+            goHomeBtn.style.display = 'none';
+        });
+
+        // Go Home
+        goHomeBtn.addEventListener('click', () => {
+            window.location.href = 'Home.html';
+        });
+    </script>
+</body>
+
+</html>
