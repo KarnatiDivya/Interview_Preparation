@@ -14,7 +14,7 @@
  // Logout function
  function logout() {
      localStorage.removeItem("username");
-     window.location.href = "./Login.html";
+     window.open("./Login.html", "_blank");
  }
 
 
