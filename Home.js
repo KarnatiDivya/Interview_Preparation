@@ -8,13 +8,13 @@
  if (username) {
      document.getElementById("welcome").textContent = `Hi, ${username}!`;
  } else {
-     window.location.href = "login.html";
+     window.location.href = "Login.html";
  }
 
  // Logout function
  function logout() {
      localStorage.removeItem("username");
-     window.location.href = "login.html";
+     window.location.href = "Login.html";
  }
 
 
