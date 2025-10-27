@@ -11,13 +11,6 @@
      window.location.href = "Login.html";
  }
 
- // Logout function
- function logout() {
-     localStorage.removeItem("username");
-     window.open("./Login.html", "_blank");
- }
-
-
  //  <!-- ⚙️ Small JavaScript for toggling -->
 
  function toggleResources(id) {
